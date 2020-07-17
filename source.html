@@ -1,0 +1,292 @@
+<html><body>
+<!--StartFragment--><div><h1 class="ec ed as ee b ef eg eh ei ej ek el em en eo ep eq er es et eu ev" id="7911">How To Model Time Series Data With Linear Regression</h1></div><h2 class="ew ed as ar cl ex ey ez fa fb fc fd fe ff fg fh fi fj fk fl fm aw" id="8189">Time Series Modeling With Python Code</h2><div class="fn"><div class="n fo fp fq fr"><div class="o n"><div><a href="https://towardsdatascience.com/@jhwang1992m?source=post_page-----cd94d1d901c0----------------------" rel="noopener"><div class="fs ft fu"><div class="fv n fw o p s fx fy fz ga gb dj"><svg height="57" viewbox="0 0 57 57" width="57"></svg></div></div></a></div></div></div></div><div><a href="https://towardsdatascience.com/@jhwang1992m?source=post_page-----cd94d1d901c0----------------------" rel="noopener"><div class="fs ft fu"><img alt="Jiahui Wang" class="r gc fu ft" height="48" src="download/2e8NPGZhPxcLycmEEaUy2lQ.jpeg" width="48"/></div></a></div><div class="gd ai r"><div class="n"><div style="flex:1"><span class="ar b as at au av r ev q"><div class="ge n o gf"><span class="ar cl gg at br gh gi gj gk gl ev"><a class="cq cr ba bb bc bd be bf bg bh gm bk gn go" href="https://towardsdatascience.com/@jhwang1992m?source=post_page-----cd94d1d901c0----------------------" rel="noopener">Jiahui Wang</a></span><div class="gp r ao h"><span><a class="gq ev q gr gs gt gu gv bh gn gw gx gy gz ha hb hc ar b as hd cm av he hf df hg dx" href="https://medium.com/m/signin?operation=register&amp;redirect=https%3A%2F%2Ftowardsdatascience.com%2Fhow-to-model-time-series-data-with-linear-regression-cd94d1d901c0&amp;source=-4037e6e33535-------------------------follow_byline-" rel="noopener">Follow</a></span></div></div></span></div></div><span class="ar b as at au av r aw ax"><span class="ar cl gg at br gh gi gj gk gl aw"><div><a class="cq cr ba bb bc bd be bf bg bh gm bk gn go" href="https://towardsdatascience.com/how-to-model-time-series-data-with-linear-regression-cd94d1d901c0?source=post_page-----cd94d1d901c0----------------------" rel="noopener">Apr 8</a> · 10 min read<span style="padding-left:4px"><svg class="star-15px_svg__svgIcon-use" height="15" style="margin-top:-2px" viewbox="0 0 15 15" width="15"></svg></span></div></span></span></div><div class="n o"><div class="hp r ao"></div></div><div class="hp r ao"></div><div class="hp r ao"></div><div class="hs r"><div class="q"><span><a class="cq cr ba bb bc bd be bf bg bh hq hr bk gn go" href="https://medium.com/m/signin?operation=register&amp;redirect=https%3A%2F%2Ftowardsdatascience.com%2Fhow-to-model-time-series-data-with-linear-regression-cd94d1d901c0&amp;source=post_actions_header--------------------------bookmark_header-" rel="noopener"><svg height="25" viewbox="0 0 25 25" width="25"></svg></a></span></div></div><article class="meteredContent"><div><section class="dk dl dm dn do"><div class="n p"><div class="z ab ac ae af dp ah ai"><div class="fn"><div class="n fo fp fq fr"><div class="n hh hi hj hk hl hm hn ho y"><div class="n o"><div class="ht r am"></div></div></div></div></div><figure class="ib ic id ie if ig dc dd paragraph-image"><div class="ih ii fs ij ai"><div class="dc dd ia"><div class="ip r fs iq"><div class="ir is r"><div class="ik il s t u im ai br in io"><img alt="Image for post" class="s t u im ai it iu ap xy" height="2250" src="download/0NS8utnPL-0YBZzBJ" width="3000"/></div><img alt="Image for post" class="sy xt s t u im ai iw" height="2250" sizes="700px" src="download/0NS8utnPL-0YBZzBJ" srcset="https://miro.medium.com/max/414/0*NS8utnPL-0YBZzBJ 276w, https://miro.medium.com/max/828/0*NS8utnPL-0YBZzBJ 552w, https://miro.medium.com/max/960/0*NS8utnPL-0YBZzBJ 640w, https://miro.medium.com/max/1050/0*NS8utnPL-0YBZzBJ 700w" width="3000"/></div></div></div></div><figcaption class="ix iy de dc dd iz ja ar cl gg at aw" data-selectable-paragraph="">Photo by <a class="cq dx dy jb ea eb" href="https://unsplash.com/@tangib?utm_source=medium&amp;utm_medium=referral" rel="noopener nofollow" target="_blank">tangi bertin</a> on <a class="cq dx dy jb ea eb" href="https://unsplash.com?utm_source=medium&amp;utm_medium=referral" rel="noopener nofollow" target="_blank">Unsplash</a></figcaption></figure><p class="jc jd as je b ex jf jg fa jh ji jj jk ff jl jm fi jn jo fl jp dk ev" data-selectable-paragraph="" id="391c">Welcome back! This is the 4th post in the <a class="cq dx dy jb ea eb" href="https://towardsdatascience.com/tagged/time-series-modeling" rel="noopener" target="_blank">column</a> to explore analysing and modeling time series data with Python code. In the previous three posts, we have covered <a class="cq dx dy jb ea eb" href="https://towardsdatascience.com/fundamental-statistics-7770376593b" rel="noopener" target="_blank"><strong class="je jq">fundamental statistical concepts</strong></a>, <a class="cq dx dy jb ea eb" href="https://towardsdatascience.com/how-to-analyse-a-single-time-series-variable-11dcca7bf16c" rel="noopener" target="_blank"><strong class="je jq">analysis of a single time series variable</strong></a>, and <a class="cq dx dy jb ea eb" href="https://towardsdatascience.com/how-to-analyse-multiple-time-series-variable-5a8d3a242a2e" rel="noopener" target="_blank"><strong class="je jq">analysis of multiple time series variables</strong></a>. From this post onwards, we will make a step further to explore modeling time series data using linear regression.</p></div></div></section><hr class="jr cl js jt ju jv iy jw jx jy jz ka"/><section class="dk dl dm dn do"><div class="n p"><div class="z ab ac ae af dp ah ai"><h1 class="kb kc as ar kd ke kf kg kh ki kj kk kl km kn ko kp kq kr ks kt ev" data-selectable-paragraph="" id="0934">1. Ordinary Least Squares (OLS)</h1><p class="jc jd as je b ex ku jg fa kv ji jj kw ff jl kx fi jn ky fl jp dk ev" data-selectable-paragraph="" id="2018">We
+
+ all learnt linear regression in school, and the concept of linear 
+
+regression seems quite simple. Given a scatter plot of the dependent 
+
+variable y versus the independent variable x, we can find a line that 
+
+fits the data well. But wait a moment, how can we measure whether a line
+
+ fits the data well or not? We cannot just visualize the plot and say a 
+
+certain line fits the data better than the other lines, because 
+
+different people may make different evaluation decisions. How can we 
+
+quantify the evaluation?</p><p class="jc jd as je b ex jf jg fa jh ji jj jk ff jl jm fi jn jo fl jp dk ev" data-selectable-paragraph="" id="b1b3">Ordinary
+
+ least squares (OLS) is a method to quantify the evaluation of the 
+
+different regression lines. According to OLS, we should choose the 
+
+regression line that minimizes the sum of the squares of the differences
+
+ between the observed dependent variable and the predicted dependent 
+
+variable.</p><figure class="ib ic id ie if ig dc dd paragraph-image"><div class="ih ii fs ij ai"><div class="dc dd kz"><div class="ip r fs iq"><div class="la is r"><div class="ik il s t u im ai br in io"><img alt="Image for post" class="s t u im ai it iu ap xy" height="651" src="download/1cfD_EOOIo6sG1Thch6QeTQ.png" width="1197"/></div><img alt="Image for post" class="sy xt s t u im ai iw" height="651" sizes="700px" src="download/1cfD_EOOIo6sG1Thch6QeTQ.png" srcset="https://miro.medium.com/max/414/1*cfD_EOOIo6sG1Thch6QeTQ.png 276w, https://miro.medium.com/max/828/1*cfD_EOOIo6sG1Thch6QeTQ.png 552w, https://miro.medium.com/max/960/1*cfD_EOOIo6sG1Thch6QeTQ.png 640w, https://miro.medium.com/max/1050/1*cfD_EOOIo6sG1Thch6QeTQ.png 700w" width="1197"/></div></div></div></div><figcaption class="ix iy de dc dd iz ja ar cl gg at aw" data-selectable-paragraph="">Illustration of OLS regression</figcaption></figure><h1 class="kb kc as ar kd ke lb kg kh lc kj kk ld km kn le kp kq lf ks kt ev" data-selectable-paragraph="" id="5738">2. Gauss-Marcov Assumptions</h1><p class="jc jd as je b ex ku jg fa kv ji jj kw ff jl kx fi jn ky fl jp dk ev" data-selectable-paragraph="" id="2be3">We
+
+ can find a line that best fits the observed data according to the 
+
+evaluation standard of OLS. A general format of the line is:</p><figure class="ib ic id ie if ig dc dd paragraph-image"><div class="ih ii fs ij ai"><div class="dc dd lg"><div class="ip r fs iq"><div class="lh is r"><div class="ik il s t u im ai br in io"><img alt="Image for post" class="s t u im ai it iu ap xy" height="137" src="download/1BsIOb5DT_4L6ZOqsyK7M7A.png" width="872"/></div><img alt="Image for post" class="sy xt s t u im ai iw" height="137" sizes="700px" src="download/1BsIOb5DT_4L6ZOqsyK7M7A.png" srcset="https://miro.medium.com/max/414/1*BsIOb5DT_4L6ZOqsyK7M7A.png 276w, https://miro.medium.com/max/828/1*BsIOb5DT_4L6ZOqsyK7M7A.png 552w, https://miro.medium.com/max/960/1*BsIOb5DT_4L6ZOqsyK7M7A.png 640w, https://miro.medium.com/max/1050/1*BsIOb5DT_4L6ZOqsyK7M7A.png 700w" width="872"/></div></div></div></div></figure><p class="jc jd as je b ex jf jg fa jh ji jj jk ff jl jm fi jn jo fl jp dk ev" data-selectable-paragraph="" id="986c">Here,
+
+ μᵢ is the residual term that is the part of yᵢ that cannot be explained
+
+ by xᵢ. We can find this best regression line according to OLS 
+
+requirement, but are we sure OLS generates the best estimator? One 
+
+example is when there is an outlier, the ‘best’ regression line 
+
+calculated according to OLS obviously does not fit the observed data 
+
+well.</p><figure class="ib ic id ie if ig dc dd paragraph-image"><div class="ih ii fs ij ai"><div class="dc dd kz"><div class="ip r fs iq"><div class="la is r"><div class="ik il s t u im ai br in io"><img alt="Image for post" class="s t u im ai it iu ap xy" height="651" src="download/1zvhHrnoVtF8QZrS-tfnIiQ.png" width="1197"/></div><img alt="Image for post" class="sy xt s t u im ai iw" height="651" sizes="700px" src="download/1zvhHrnoVtF8QZrS-tfnIiQ.png" srcset="https://miro.medium.com/max/414/1*zvhHrnoVtF8QZrS-tfnIiQ.png 276w, https://miro.medium.com/max/828/1*zvhHrnoVtF8QZrS-tfnIiQ.png 552w, https://miro.medium.com/max/960/1*zvhHrnoVtF8QZrS-tfnIiQ.png 640w, https://miro.medium.com/max/1050/1*zvhHrnoVtF8QZrS-tfnIiQ.png 700w" width="1197"/></div></div></div></div><figcaption class="ix iy de dc dd iz ja ar cl gg at aw" data-selectable-paragraph="">A case when OLS does not generate the best regression line to describe the data</figcaption></figure><p class="jc jd as je b ex jf jg fa jh ji jj jk ff jl jm fi jn jo fl jp dk ev" data-selectable-paragraph="" id="1aac"><strong class="je jq">2.1 Gauss-Markov Assumptions for Cross-sectional Data</strong></p><p class="jc jd as je b ex jf jg fa jh ji jj jk ff jl jm fi jn jo fl jp dk ev" data-selectable-paragraph="" id="5912">It
+
+ turns out that only when certain assumptions are fulfilled, OLS 
+
+calculates the best linear unbiased estimator (BLUE) that well estimates
+
+ the population parameters. For cross-sectional data, Gauss-Marcov 
+
+assumptions have six assumptions that ensure estimators calculated using
+
+ OLS are BLUE. When any one of the Gauss-Marcov assumptions is violated,
+
+ the sample parameters calculated using OLS no longer represent 
+
+population parameters well.</p><ol class=""><li class="jc jd as je b ex jf jg fa jh ji jj jk ff jl jm fi jn jo fl jp li lj lk ev" data-selectable-paragraph="" id="aa71">Linearity
+
+ in parameters. This assumption requires that parameter β is linear. 
+
+However, there is no requirement for linearity in the independent 
+
+variable. yᵢ=α + βxᵢ² +μᵢ and yᵢ=α + βIn(xᵢ) +μᵢ both have linear β.</li><li class="jc jd as je b ex ll jg fa lm ji jj ln ff jl lo fi jn lp fl jp li lj lk ev" data-selectable-paragraph="" id="47a7">The
+
+ independent variable x and dependent variable y are both random 
+
+variables. It is worth mentioning that if x and y are both random 
+
+variables, the residual term μ will not be autocorrelated.</li><li class="jc jd as je b ex ll jg fa lm ji jj ln ff jl lo fi jn lp fl jp li lj lk ev" data-selectable-paragraph="" id="c06a">No
+
+ perfect collinearity between multiple independent variables x₁ and x₂. 
+
+If there is perfect collinearity, linear regression results will be 
+
+random, as it cannot differentiate the contribution of x₁ and x₂. 
+
+Typically, when R² result is good but t test for each independent 
+
+variable is poor, it indicates collinearity.</li><li class="jc jd as je b ex ll jg fa lm ji jj ln ff jl lo fi jn lp fl jp li lj lk ev" data-selectable-paragraph="" id="6ee0">The
+
+ residual term μ is endogenous. To be endogenous, μᵢ does not change 
+
+with xᵢ. It can be expressed as cov(μᵢ, xᵢ)=0. Endogeneity may arise 
+
+from reverse causality or measurement error in x, which causes cov(μᵢ, 
+
+xᵢ)!=0.</li><li class="jc jd as je b ex ll jg fa lm ji jj ln ff jl lo fi jn lp fl jp li lj lk ev" data-selectable-paragraph="" id="5c9a">Homoscedasticity in residual term μᵢ. It requires the variance of μᵢ does not change with xᵢ.</li><li class="jc jd as je b ex ll jg fa lm ji jj ln ff jl lo fi jn lp fl jp li lj lk ev" data-selectable-paragraph="" id="bad9">No
+
+ autocorrelation of the residual term μᵢ. It can be expressed as cov(μᵢ,
+
+ μⱼ)=0. Autocorrelation of μᵢ can arise from omitted independent 
+
+variable, mis-specified regression function, measurement error in the 
+
+independent variables, and cluster errors.</li></ol><p class="jc jd as je b ex jf jg fa jh ji jj jk ff jl jm fi jn jo fl jp dk ev" data-selectable-paragraph="" id="3036"><strong class="je jq">2.2 Gauss-Markov Assumptions for Time Series Data</strong></p><p class="jc jd as je b ex jf jg fa jh ji jj jk ff jl jm fi jn jo fl jp dk ev" data-selectable-paragraph="" id="8965">Time
+
+ series data is slightly different from the cross-sectional data. For 
+
+cross-sectional data, we are getting samples from a population and 
+
+Gauss-Markov assumptions require the independent variable x and 
+
+dependent variable y are both random variables. For time series data, we
+
+ are getting samples from the same process, and we can no longer assume 
+
+that the independent variable x is random variable. Thus, Gauss-Markov 
+
+assumptions are stricter for time series data in terms of endogeneity, 
+
+homoscedasticity, and no autocorrelation. Since x is no longer a random 
+
+variable, the requirement needs to be fulfilled for all xₖ at all time 
+
+points instead of just xᵢ at the time point as the residual term μᵢ.</p><h1 class="kb kc as ar kd ke lb kg kh lc kj kk ld km kn le kp kq lf ks kt ev" data-selectable-paragraph="" id="1c78">3. Hypothesis Testing On Linear Regression</h1><p class="jc jd as je b ex ku jg fa kv ji jj kw ff jl kx fi jn ky fl jp dk ev" data-selectable-paragraph="" id="45b4"><strong class="je jq">3.1 Linear Regression in Python</strong></p><p class="jc jd as je b ex jf jg fa jh ji jj jk ff jl jm fi jn jo fl jp dk ev" data-selectable-paragraph="" id="a09f">Here, we continue to use the historical AAPL_price and SPY_price obtained from <a class="cq dx dy jb ea eb" href="https://sg.finance.yahoo.com/quote/AAPL/" rel="noopener nofollow" target="_blank">Yahoo finance</a>.
+
+ We scatter plot AAPL_price against SPY_price first. Then, to find to 
+
+what extent AAPL_price can be explained by the overall stock market 
+
+price, we will build linear regression model with SPY_price as the 
+
+independent variable x and AAPL_price as the dependent variable y.</p><p class="jc jd as je b ex jf jg fa jh ji jj jk ff jl jm fi jn jo fl jp dk ev" data-selectable-paragraph="" id="8c96">Linear regression can be easily done with statsmodels library in Python.</p><pre class="ib ic id ie if lq lr ca"><span class="ev ls kc as lt b gg lu lv r lw" data-selectable-paragraph="" id="ba74">import numpy as np<br/>import pandas as pd<br/>import matplotlib.pyplot as plt<br/>import statsmodels.api as sm</span><span class="ev ls kc as lt b gg lx ly lz ma mb lv r lw" data-selectable-paragraph="" id="c58b">AAPL_price = pd.read_csv('AAPL.csv',usecols=['Date', 'Close'])<br/>SPY_price = pd.read_csv('SPY.csv',usecols=['Date', 'Close'])</span><span class="ev ls kc as lt b gg lx ly lz ma mb lv r lw" data-selectable-paragraph="" id="edff">X = sm.add_constant(SPY_price['Close'])<br/>model = sm.OLS(AAPL_price['Close'],X)<br/>results = model.fit()</span><span class="ev ls kc as lt b gg lx ly lz ma mb lv r lw" data-selectable-paragraph="" id="39b2">plt.scatter(SPY_price['Close'],AAPL_price['Close'],alpha=0.3)<br/>y_predict = results.params[0] + results.params[1]*SPY_price['Close']<br/>plt.plot(SPY_price['Close'],y_predict, linewidth=3)</span><span class="ev ls kc as lt b gg lx ly lz ma mb lv r lw" data-selectable-paragraph="" id="1d40">plt.xlim(240,350)<br/>plt.ylim(100,350)<br/>plt.xlabel('SPY_price')<br/>plt.ylabel('AAPL_price')<br/>plt.title('OLS Regression')</span><span class="ev ls kc as lt b gg lx ly lz ma mb lv r lw" data-selectable-paragraph="" id="c4d9">print(results.summary())</span></pre><figure class="ib ic id ie if ig dc dd paragraph-image"><div class="dc dd mc"><div class="ip r fs iq"><div class="md is r"><div class="ik il s t u im ai br in io"><img alt="Image for post" class="s t u im ai it iu ap xy" height="288" src="download/1cWBMsoGgEhCO39_nrp2Log.png" width="432"/></div><img alt="Image for post" class="sy xt s t u im ai iw" height="288" sizes="432px" src="download/1cWBMsoGgEhCO39_nrp2Log.png" srcset="https://miro.medium.com/max/414/1*cWBMsoGgEhCO39_nrp2Log.png 276w, https://miro.medium.com/max/648/1*cWBMsoGgEhCO39_nrp2Log.png 432w" width="432"/></div></div></div></figure><p class="jc jd as je b ex jf jg fa jh ji jj jk ff jl jm fi jn jo fl jp dk ev" data-selectable-paragraph="" id="2a6e">Together with the plot to visualize the OLS linear regression results, we can print a summary table, which looks like this:</p><figure class="ib ic id ie if ig dc dd paragraph-image"><div class="dc dd me"><div class="ip r fs iq"><div class="mf is r"><div class="ik il s t u im ai br in io"><img alt="Image for post" class="s t u im ai it iu ap xy" height="325" src="download/1ST-bL7LLxhgk8r8Rn7C3YQ.png" width="566"/></div><img alt="Image for post" class="sy xt s t u im ai iw" height="325" sizes="566px" src="download/1ST-bL7LLxhgk8r8Rn7C3YQ.png" srcset="https://miro.medium.com/max/414/1*ST-bL7LLxhgk8r8Rn7C3YQ.png 276w, https://miro.medium.com/max/828/1*ST-bL7LLxhgk8r8Rn7C3YQ.png 552w, https://miro.medium.com/max/849/1*ST-bL7LLxhgk8r8Rn7C3YQ.png 566w" width="566"/></div></div></div></figure><p class="jc jd as je b ex jf jg fa jh ji jj jk ff jl jm fi jn jo fl jp dk ev" data-selectable-paragraph="" id="b0ae">Why
+
+ are we doing these complex hypothesis testing? How can we interpret 
+
+these hypothesis testing results? We will answer these questions in the 
+
+following sessions.</p><p class="jc jd as je b ex jf jg fa jh ji jj jk ff jl jm fi jn jo fl jp dk ev" data-selectable-paragraph="" id="75b3"><strong class="je jq">3.2 Why Hypothesis Testing on Linear Regression?</strong></p><p class="jc jd as je b ex jf jg fa jh ji jj jk ff jl jm fi jn jo fl jp dk ev" data-selectable-paragraph="" id="409e">Since
+
+ we are using samples to estimate the population, we need to evaluate 
+
+how well the population parameters are estimated by the sample 
+
+parameters. To conduct hypothesis testing on sample parameters, we need 
+
+to know the sample parameter distribution.</p><p class="jc jd as je b ex jf jg fa jh ji jj jk ff jl jm fi jn jo fl jp dk ev" data-selectable-paragraph="" id="1ae2">According
+
+ to the central limit theorem, when the sample size is large enough, the
+
+ sample distribution of β is normal distribution:</p><figure class="ib ic id ie if ig dc dd paragraph-image"><div class="ih ii fs ij ai"><div class="dc dd mg"><div class="ip r fs iq"><div class="mh is r"><div class="ik il s t u im ai br in io"><img alt="Image for post" class="s t u im ai it iu ap xy" height="177" src="download/1ruvZ0Xc2hJxg7BfdIpIj3w.png" width="988"/></div><img alt="Image for post" class="sy xt s t u im ai iw" height="177" sizes="700px" src="download/1ruvZ0Xc2hJxg7BfdIpIj3w.png" srcset="https://miro.medium.com/max/414/1*ruvZ0Xc2hJxg7BfdIpIj3w.png 276w, https://miro.medium.com/max/828/1*ruvZ0Xc2hJxg7BfdIpIj3w.png 552w, https://miro.medium.com/max/960/1*ruvZ0Xc2hJxg7BfdIpIj3w.png 640w, https://miro.medium.com/max/1050/1*ruvZ0Xc2hJxg7BfdIpIj3w.png 700w" width="988"/></div></div></div></div></figure><p class="jc jd as je b ex jf jg fa jh ji jj jk ff jl jm fi jn jo fl jp dk ev" data-selectable-paragraph="" id="c801">However,
+
+ we do not know the exact population residual variance (σ²). We can use 
+
+sample residual variance (σʰᵃᵗ²) to estimate population residual 
+
+variance, but this way sample β distribution is no longer a normal 
+
+distribution. It becomes t distribution instead:</p><figure class="ib ic id ie if ig dc dd paragraph-image"><div class="ih ii fs ij ai"><div class="dc dd mi"><div class="ip r fs iq"><div class="mj is r"><div class="ik il s t u im ai br in io"><img alt="Image for post" class="s t u im ai it iu ap xy" height="209" src="download/1QQD_uLVv_rpwwdF_0ooXOA.png" width="963"/></div><img alt="Image for post" class="sy xt s t u im ai iw" height="209" sizes="700px" src="download/1QQD_uLVv_rpwwdF_0ooXOA.png" srcset="https://miro.medium.com/max/414/1*QQD_uLVv_rpwwdF_0ooXOA.png 276w, https://miro.medium.com/max/828/1*QQD_uLVv_rpwwdF_0ooXOA.png 552w, https://miro.medium.com/max/960/1*QQD_uLVv_rpwwdF_0ooXOA.png 640w, https://miro.medium.com/max/1050/1*QQD_uLVv_rpwwdF_0ooXOA.png 700w" width="963"/></div></div></div></div></figure><figure class="ib ic id ie if ig dc dd paragraph-image"><div class="ih ii fs ij ai"><div class="dc dd mk"><div class="ip r fs iq"><div class="ml is r"><div class="ik il s t u im ai br in io"><img alt="Image for post" class="s t u im ai it iu ap xy" height="882" src="download/1jJKjgT5ugFYy9CbY1p6iEQ.png" width="2100"/></div><img alt="Image for post" class="sy xt s t u im ai iw" height="882" sizes="700px" src="download/1jJKjgT5ugFYy9CbY1p6iEQ.png" srcset="https://miro.medium.com/max/414/1*jJKjgT5ugFYy9CbY1p6iEQ.png 276w, https://miro.medium.com/max/828/1*jJKjgT5ugFYy9CbY1p6iEQ.png 552w, https://miro.medium.com/max/960/1*jJKjgT5ugFYy9CbY1p6iEQ.png 640w, https://miro.medium.com/max/1050/1*jJKjgT5ugFYy9CbY1p6iEQ.png 700w" width="2100"/></div></div></div></div><figcaption class="ix iy de dc dd iz ja ar cl gg at aw" data-selectable-paragraph="">Sample
+
+ distribution of β follows t distribution, because we do not exactly 
+
+know the variance of population residual variance. Standard error is the
+
+ variance of sample parameter.</figcaption></figure><p class="jc jd as je b ex jf jg fa jh ji jj jk ff jl jm fi jn jo fl jp dk ev" data-selectable-paragraph="" id="faa2"><strong class="je jq">3.3 How To Interpret OLS Statistical Summary?</strong></p><p class="jc jd as je b ex jf jg fa jh ji jj jk ff jl jm fi jn jo fl jp dk ev" data-selectable-paragraph="" id="fa17">Now it is time to come back to the OLS Regression Results table and try to interpret the summary results.</p><p class="jc jd as je b ex jf jg fa jh ji jj jk ff jl jm fi jn jo fl jp dk ev" data-selectable-paragraph="" id="5e44">The
+
+ first session of the summary table has R² and F-statistic, which 
+
+measure the overall explainability of the independent variables over the
+
+ dependent variable.</p><p class="jc jd as je b ex jf jg fa jh ji jj jk ff jl jm fi jn jo fl jp dk ev" data-selectable-paragraph="" id="0c6d">R²
+
+ is the explained sum of squared errors divided by the total sum of 
+
+squared errors. R² lies in between 0 and 1, and a larger R² indicates 
+
+the dependent variable is better explained by the independent variables.
+
+ R² = explained sum of squared errors/total sum of squared errors. With 
+
+more independent variables, the resulting R² will be closer to 1, but at
+
+ the same time, the more independent variables may result in 
+
+overfitting. Adjusted R² prefers fewer independent variables by 
+
+penalizing the excess independent variables.</p><p class="jc jd as je b ex jf jg fa jh ji jj jk ff jl jm fi jn jo fl jp dk ev" data-selectable-paragraph="" id="efa4">F
+
+ statistic tests against the joint effect of the independent variables. A
+
+ low p-value of F statistic test indicates that the independent 
+
+variables do not explain the dependent variable well.</p><p class="jc jd as je b ex jf jg fa jh ji jj jk ff jl jm fi jn jo fl jp dk ev" data-selectable-paragraph="" id="0cd7">The
+
+ second session of the summary table is the t-statistic which tests 
+
+against each independent variable. Using the F-statistic and t-statistic
+
+ together helps to check whether there is collinearity in the 
+
+independent variables. A good F-statistic and poor t-statistic indicates
+
+ collinearity.</p><p class="jc jd as je b ex jf jg fa jh ji jj jk ff jl jm fi jn jo fl jp dk ev" data-selectable-paragraph="" id="ed5e">Durbin-Watson
+
+ and Jarque-Bera reported in the third session of the summary table 
+
+measures the stationarity and normality of the residual term, which will
+
+ be discussed in detail in the following sessions.</p><h1 class="kb kc as ar kd ke lb kg kh lc kj kk ld km kn le kp kq lf ks kt ev" data-selectable-paragraph="" id="06c8">4. Linear Regression Residual</h1><p class="jc jd as je b ex ku jg fa kv ji jj kw ff jl kx fi jn ky fl jp dk ev" data-selectable-paragraph="" id="52af">The
+
+ residual term is important. By checking whether the Gauss-Marcov 
+
+assumptions are fulfilled using the residual term, we can infer the 
+
+quality of the linear regression.</p><figure class="ib ic id ie if ig dc dd paragraph-image"><div class="ih ii fs ij ai"><div class="dc dd mm"><div class="ip r fs iq"><div class="mn is r"><div class="ik il s t u im ai br in io"><img alt="Image for post" class="s t u im ai it iu ap xy" height="1060" src="download/13sd1TlhWfGSt-f4wKsURIw.png" width="2171"/></div><img alt="Image for post" class="sy xt s t u im ai iw" height="1060" sizes="700px" src="download/13sd1TlhWfGSt-f4wKsURIw.png" srcset="https://miro.medium.com/max/414/1*3sd1TlhWfGSt-f4wKsURIw.png 276w, https://miro.medium.com/max/828/1*3sd1TlhWfGSt-f4wKsURIw.png 552w, https://miro.medium.com/max/960/1*3sd1TlhWfGSt-f4wKsURIw.png 640w, https://miro.medium.com/max/1050/1*3sd1TlhWfGSt-f4wKsURIw.png 700w" width="2171"/></div></div></div></div><figcaption class="ix iy de dc dd iz ja ar cl gg at aw" data-selectable-paragraph="">Expected value of sample β</figcaption></figure><figure class="ib ic id ie if ig dc dd paragraph-image"><div class="ih ii fs ij ai"><div class="dc dd mo"><div class="ip r fs iq"><div class="mp is r"><div class="ik il s t u im ai br in io"><img alt="Image for post" class="s t u im ai it iu ap xy" height="855" src="download/1-q3Je4RyUrwGAe0zLe7unA.png" width="2255"/></div><img alt="Image for post" class="sy xt s t u im ai iw" height="855" sizes="700px" src="download/1-q3Je4RyUrwGAe0zLe7unA.png" srcset="https://miro.medium.com/max/414/1*-q3Je4RyUrwGAe0zLe7unA.png 276w, https://miro.medium.com/max/828/1*-q3Je4RyUrwGAe0zLe7unA.png 552w, https://miro.medium.com/max/960/1*-q3Je4RyUrwGAe0zLe7unA.png 640w, https://miro.medium.com/max/1050/1*-q3Je4RyUrwGAe0zLe7unA.png 700w" width="2255"/></div></div></div></div><figcaption class="ix iy de dc dd iz ja ar cl gg at aw" data-selectable-paragraph="">Variance of sample β</figcaption></figure><figure class="ib ic id ie if ig dc dd paragraph-image"><div class="dc dd mc"><div class="ip r fs iq"><div class="md is r"><div class="ik il s t u im ai br in io"><img alt="Image for post" class="s t u im ai it iu ap xy" height="288" src="download/1QEA1QMyqLKsxVuFKyz-BZA.png" width="432"/></div><img alt="Image for post" class="sy xt s t u im ai iw" height="288" sizes="432px" src="download/1QEA1QMyqLKsxVuFKyz-BZA.png" srcset="https://miro.medium.com/max/414/1*QEA1QMyqLKsxVuFKyz-BZA.png 276w, https://miro.medium.com/max/648/1*QEA1QMyqLKsxVuFKyz-BZA.png 432w" width="432"/></div></div></div></figure><p class="jc jd as je b ex jf jg fa jh ji jj jk ff jl jm fi jn jo fl jp dk ev" data-selectable-paragraph="" id="cdc0"><strong class="je jq">4.1 Normality test</strong></p><p class="jc jd as je b ex jf jg fa jh ji jj jk ff jl jm fi jn jo fl jp dk ev" data-selectable-paragraph="" id="fc17">It
+
+ is important to test if the residuals are normally distributed. If the 
+
+residuals are not normally distributed, the residuals should not be used
+
+ for z test or any other test derived from normal distribution, such as t
+
+ test, F test and chi2 test.</p><figure class="ib ic id ie if ig dc dd paragraph-image"><div class="ih ii fs ij ai"><div class="dc dd mq"><div class="ip r fs iq"><div class="mr is r"><div class="ik il s t u im ai br in io"><img alt="Image for post" class="s t u im ai it iu ap xy" height="861" src="download/1dXgVdSaG6i-_LNx8oHJnNw.png" width="2114"/></div><img alt="Image for post" class="sy xt s t u im ai iw" height="861" sizes="700px" src="download/1dXgVdSaG6i-_LNx8oHJnNw.png" srcset="https://miro.medium.com/max/414/1*dXgVdSaG6i-_LNx8oHJnNw.png 276w, https://miro.medium.com/max/828/1*dXgVdSaG6i-_LNx8oHJnNw.png 552w, https://miro.medium.com/max/960/1*dXgVdSaG6i-_LNx8oHJnNw.png 640w, https://miro.medium.com/max/1050/1*dXgVdSaG6i-_LNx8oHJnNw.png 700w" width="2114"/></div></div></div></div></figure><pre class="ib ic id ie if lq lr ca"><span class="ev ls kc as lt b gg lu lv r lw" data-selectable-paragraph="" id="3a9c">import pandas as pd<br/>import statsmodels.api as sm<br/>from scipy import stats</span><span class="ev ls kc as lt b gg lx ly lz ma mb lv r lw" data-selectable-paragraph="" id="0fe1">AAPL_price = pd.read_csv('AAPL.csv',usecols=['Date', 'Close'])<br/>SPY_price = pd.read_csv('SPY.csv',usecols=['Date', 'Close'])</span><span class="ev ls kc as lt b gg lx ly lz ma mb lv r lw" data-selectable-paragraph="" id="4828">X = sm.add_constant(SPY_price['Close'])<br/>model = sm.OLS(AAPL_price['Close'],X)<br/>results = model.fit()</span><span class="ev ls kc as lt b gg lx ly lz ma mb lv r lw" data-selectable-paragraph="" id="92df">residual = AAPL_price['Close']-results.params[0] - results.params[1]*SPY_price['Close']</span><span class="ev ls kc as lt b gg lx ly lz ma mb lv r lw" data-selectable-paragraph="" id="54b0">print('p value of Jarque-Bera test is: ', stats.jarque_bera(residual)[1])<br/>print('p value of Shapiro-Wilk test is: ', stats.shapiro(residual)[1])<br/>print('p value of Kolmogorov-Smirnov test is: ', stats.kstest(residual, 'norm')[1])</span></pre><p class="jc jd as je b ex jf jg fa jh ji jj jk ff jl jm fi jn jo fl jp dk ev" data-selectable-paragraph="" id="ba4b">Output:</p><p class="jc jd as je b ex jf jg fa jh ji jj jk ff jl jm fi jn jo fl jp dk ev" data-selectable-paragraph="" id="10a2">p value of Jarque-Bera test is: 0.0<br/>p value of Shapiro-Wilk test is: 9.164991873555915e-20<br/>p value of Kolmogorov-Smirnov test is: 1.1324826980654097e-55</p><p class="jc jd as je b ex jf jg fa jh ji jj jk ff jl jm fi jn jo fl jp dk ev" data-selectable-paragraph="" id="1f67">If
+
+ we choose a significance level of 0.05, then all the three normality 
+
+tests indicate the residual term does not follow normal distribution.</p><p class="jc jd as je b ex jf jg fa jh ji jj jk ff jl jm fi jn jo fl jp dk ev" data-selectable-paragraph="" id="2bd2"><strong class="je jq">4.2 Homogeneity test</strong></p><p class="jc jd as je b ex jf jg fa jh ji jj jk ff jl jm fi jn jo fl jp dk ev" data-selectable-paragraph="" id="ab14">Three
+
+ commonly used statistical testing for heteroscedasticity are 
+
+Goldfeld-Quandt, Breusch-Pagan, White test. In the same sequence, more 
+
+general homogeneity is tested.</p><figure class="ib ic id ie if ig dc dd paragraph-image"><div class="ih ii fs ij ai"><div class="dc dd ms"><div class="ip r fs iq"><div class="mt is r"><div class="ik il s t u im ai br in io"><img alt="Image for post" class="s t u im ai it iu ap xy" height="736" src="download/1Jc9PDg3u1D6nwUxghs1CjA.png" width="2153"/></div><img alt="Image for post" class="sy xt s t u im ai iw" height="736" sizes="700px" src="download/1Jc9PDg3u1D6nwUxghs1CjA.png" srcset="https://miro.medium.com/max/414/1*Jc9PDg3u1D6nwUxghs1CjA.png 276w, https://miro.medium.com/max/828/1*Jc9PDg3u1D6nwUxghs1CjA.png 552w, https://miro.medium.com/max/960/1*Jc9PDg3u1D6nwUxghs1CjA.png 640w, https://miro.medium.com/max/1050/1*Jc9PDg3u1D6nwUxghs1CjA.png 700w" width="2153"/></div></div></div></div></figure><pre class="ib ic id ie if lq lr ca"><span class="ev ls kc as lt b gg lu lv r lw" data-selectable-paragraph="" id="f630">import numpy as np<br/>import pandas as pd<br/>import matplotlib.pyplot as plt<br/>import statsmodels.api as sm<br/>import statsmodels.stats.api as sms</span><span class="ev ls kc as lt b gg lx ly lz ma mb lv r lw" data-selectable-paragraph="" id="715b">AAPL_price = pd.read_csv('AAPL.csv',usecols=['Date', 'Close'])<br/>SPY_price = pd.read_csv('SPY.csv',usecols=['Date', 'Close'])</span><span class="ev ls kc as lt b gg lx ly lz ma mb lv r lw" data-selectable-paragraph="" id="b4f6">X = sm.add_constant(SPY_price['Close'])<br/>model = sm.OLS(AAPL_price['Close'],X)<br/>results = model.fit()</span><span class="ev ls kc as lt b gg lx ly lz ma mb lv r lw" data-selectable-paragraph="" id="79f4">residual = AAPL_price['Close']-results.params[0] - results.params[1]*SPY_price['Close']</span><span class="ev ls kc as lt b gg lx ly lz ma mb lv r lw" data-selectable-paragraph="" id="60be">print('p value of Goldfeld–Quandt test is: ', sms.het_goldfeldquandt(results.resid, results.model.exog)[1])<br/>print('p value of Breusch–Pagan test is: ', sms.het_breuschpagan(results.resid, results.model.exog)[1])<br/>print('p value of White test is: ', sms.het_white(results.resid, results.model.exog)[1])</span></pre><p class="jc jd as je b ex jf jg fa jh ji jj jk ff jl jm fi jn jo fl jp dk ev" data-selectable-paragraph="" id="9a48">Output is:</p><p class="jc jd as je b ex jf jg fa jh ji jj jk ff jl jm fi jn jo fl jp dk ev" data-selectable-paragraph="" id="036b">p value of Goldfeld–Quandt test is: 2.3805273535080445e-38<br/>p value of Breusch–Pagan test is: 2.599557770260936e-06<br/>p value of White test is: 1.0987132773425074e-22</p><p class="jc jd as je b ex jf jg fa jh ji jj jk ff jl jm fi jn jo fl jp dk ev" data-selectable-paragraph="" id="2516">If
+
+ we choose a significance level of 0.05, then all the three normality 
+
+tests indicate the residual term does not follow normal distribution.</p><p class="jc jd as je b ex jf jg fa jh ji jj jk ff jl jm fi jn jo fl jp dk ev" data-selectable-paragraph="" id="5ba3"><strong class="je jq">4.3 Stationarity test</strong></p><p class="jc jd as je b ex jf jg fa jh ji jj jk ff jl jm fi jn jo fl jp dk ev" data-selectable-paragraph="" id="7a1d">Durbin-Watson
+
+ test detects autocorrelation of the residual term with lag of 1, while 
+
+Breusch-Godfrey test detects autocorrelation of the residual term with 
+
+lag of N, depending on the setting in the test.</p><pre class="ib ic id ie if lq lr ca"><span class="ev ls kc as lt b gg lu lv r lw" data-selectable-paragraph="" id="ab44">import numpy as np<br/>import pandas as pd<br/>import matplotlib.pyplot as plt<br/>import statsmodels.api as sm</span><span class="ev ls kc as lt b gg lx ly lz ma mb lv r lw" data-selectable-paragraph="" id="311b">AAPL_price = pd.read_csv('AAPL.csv',usecols=['Date', 'Close'])<br/>SPY_price = pd.read_csv('SPY.csv',usecols=['Date', 'Close'])</span><span class="ev ls kc as lt b gg lx ly lz ma mb lv r lw" data-selectable-paragraph="" id="de9e">X = sm.add_constant(SPY_price['Close'])<br/>model = sm.OLS(AAPL_price['Close'],X)<br/>results = model.fit()</span><span class="ev ls kc as lt b gg lx ly lz ma mb lv r lw" data-selectable-paragraph="" id="3736">import statsmodels.stats.api as sms<br/>print('The Durbin-Watson statistic is: ', sms.durbin_watson(results.resid))<br/>print('p value of Breusch-Godfrey test is: ', sms.acorr_breusch_godfrey(results,nlags=1)[3])</span></pre><p class="jc jd as je b ex jf jg fa jh ji jj jk ff jl jm fi jn jo fl jp dk ev" data-selectable-paragraph="" id="6ab9">Output:</p><p class="jc jd as je b ex jf jg fa jh ji jj jk ff jl jm fi jn jo fl jp dk ev" data-selectable-paragraph="" id="d3e8">The Durbin-Watson statistic is: 0.06916423461968918<br/>p value of Breusch-Godfrey test is: 4.646673126097712e-150</p><p class="jc jd as je b ex jf jg fa jh ji jj jk ff jl jm fi jn jo fl jp dk ev" data-selectable-paragraph="" id="8fbb">Both
+
+ Durbin-Watson and Breusch-Godfrey tests indicate there is 
+
+autocorrelation of the residual term with lag of 1. When Durbin-Watson 
+
+statistic is 2, there is no autocorrelation. When Durbin-Watson 
+
+statistic is towards 0, there is positive autocorrelation.</p><h1 class="kb kc as ar kd ke lb kg kh lc kj kk ld km kn le kp kq lf ks kt ev" data-selectable-paragraph="" id="59cc">5. Solving Violations of Gauss-Marcov Assumptions</h1><p class="jc jd as je b ex ku jg fa kv ji jj kw ff jl kx fi jn ky fl jp dk ev" data-selectable-paragraph="" id="286e"><strong class="je jq">5.1 Violation of Gauss-Marcov Assumptions</strong></p><p class="jc jd as je b ex jf jg fa jh ji jj jk ff jl jm fi jn jo fl jp dk ev" data-selectable-paragraph="" id="8acc">When
+
+ the Gauss-Marcov assumptions are violated, the estimators calculated 
+
+from the samples are no longer BLUE. The following table shows how 
+
+violation of Gauss-Marcov assumptions affects the linear regression 
+
+quality.</p><figure class="ib ic id ie if ig dc dd paragraph-image"><div class="ih ii fs ij ai"><div class="dc dd mu"><div class="ip r fs iq"><div class="mv is r"><div class="ik il s t u im ai br in io"><img alt="Image for post" class="s t u im ai it iu ap xy" height="638" src="download/1z1Cz1U_AozDit32HkN4jAg.png" width="2488"/></div><img alt="Image for post" class="sy xt s t u im ai iw" height="638" sizes="700px" src="download/1z1Cz1U_AozDit32HkN4jAg.png" srcset="https://miro.medium.com/max/414/1*z1Cz1U_AozDit32HkN4jAg.png 276w, https://miro.medium.com/max/828/1*z1Cz1U_AozDit32HkN4jAg.png 552w, https://miro.medium.com/max/960/1*z1Cz1U_AozDit32HkN4jAg.png 640w, https://miro.medium.com/max/1050/1*z1Cz1U_AozDit32HkN4jAg.png 700w" width="2488"/></div></div></div></div></figure><p class="jc jd as je b ex jf jg fa jh ji jj jk ff jl jm fi jn jo fl jp dk ev" data-selectable-paragraph="" id="51de"><strong class="je jq">5.2 Weighted Least Squares (WLS)</strong></p><p class="jc jd as je b ex jf jg fa jh ji jj jk ff jl jm fi jn jo fl jp dk ev" data-selectable-paragraph="" id="d9fb">To
+
+ account for heteroscedastic error, Weighted Least Squares (WLS) can be 
+
+used. WLS transforms the independent variable and the dependent 
+
+variable, so that OLS remains BLUE after the transformation.</p><figure class="ib ic id ie if ig dc dd paragraph-image"><div class="ih ii fs ij ai"><div class="dc dd mw"><div class="ip r fs iq"><div class="mx is r"><div class="ik il s t u im ai br in io"><img alt="Image for post" class="s t u im ai it iu ap xy" height="438" src="download/1k_F7OxRdKaYoB393OCPqHQ.png" width="1830"/></div><img alt="Image for post" class="sy xt s t u im ai iw" height="438" sizes="700px" src="download/1k_F7OxRdKaYoB393OCPqHQ.png" srcset="https://miro.medium.com/max/414/1*k_F7OxRdKaYoB393OCPqHQ.png 276w, https://miro.medium.com/max/828/1*k_F7OxRdKaYoB393OCPqHQ.png 552w, https://miro.medium.com/max/960/1*k_F7OxRdKaYoB393OCPqHQ.png 640w, https://miro.medium.com/max/1050/1*k_F7OxRdKaYoB393OCPqHQ.png 700w" width="1830"/></div></div></div></div></figure><p class="jc jd as je b ex jf jg fa jh ji jj jk ff jl jm fi jn jo fl jp dk ev" data-selectable-paragraph="" id="ac61"><strong class="je jq">5.3 Generalized Least Squares (GLS)</strong></p><p class="jc jd as je b ex jf jg fa jh ji jj jk ff jl jm fi jn jo fl jp dk ev" data-selectable-paragraph="" id="63e0">To
+
+ account for both heteroscedastic error and serial correlated error, 
+
+Generalized Least Squares (GLS) can be used. GLS transforms the 
+
+independent variable and the dependent variable in a more complex way 
+
+than WLS, so that OLS remains BLUE after the transformation.</p><figure class="ib ic id ie if ig dc dd paragraph-image"><div class="ih ii fs ij ai"><div class="dc dd my"><div class="ip r fs iq"><div class="mz is r"><div class="ik il s t u im ai br in io"><img alt="Image for post" class="s t u im ai it iu ap xy" height="497" src="download/1LMmh1bZmxm-4MqRLUMgomA.png" width="1708"/></div><img alt="Image for post" class="sy xt s t u im ai iw" height="497" sizes="700px" src="download/1LMmh1bZmxm-4MqRLUMgomA.png" srcset="https://miro.medium.com/max/414/1*LMmh1bZmxm-4MqRLUMgomA.png 276w, https://miro.medium.com/max/828/1*LMmh1bZmxm-4MqRLUMgomA.png 552w, https://miro.medium.com/max/960/1*LMmh1bZmxm-4MqRLUMgomA.png 640w, https://miro.medium.com/max/1050/1*LMmh1bZmxm-4MqRLUMgomA.png 700w" width="1708"/></div></div></div></div></figure></div></div></section><hr class="jr cl js jt ju jv iy jw jx jy jz ka"/><section class="dk dl dm dn do"><div class="n p"><div class="z ab ac ae af dp ah ai"><h1 class="kb kc as ar kd ke kf kg kh ki kj kk kl km kn ko kp kq kr ks kt ev" data-selectable-paragraph="" id="0d42">Summary</h1><p class="jc jd as je b ex ku jg fa kv ji jj kw ff jl kx fi jn ky fl jp dk ev" data-selectable-paragraph="" id="a251">In
+
+ this post, we learnt that OLS generates good estimators only when 
+
+Gauss-Marcov assumptions are fulfilled. Thus, after linear regression, 
+
+it is always important to check the residual terms to ensure the 
+
+Gauss-Marcov assumptions are not violated. Luckily, using the 
+
+statsmodels library in Python, many statistical tests are automatically 
+
+conducted during the linear regression. A simple print of the OLS linear
+
+ regression summary table enables us to quickly evaluate the quality of 
+
+the linear regression. If there is violation of the Guass-Marcov 
+
+assumptions, further solutions of WLS and GLS are also available to 
+
+transform the independent variable and dependent variable, so that OLS 
+
+remains BLUE.</p><p class="jc jd as je b ex jf jg fa jh ji jj jk ff jl jm fi jn jo fl jp dk ev" data-selectable-paragraph="" id="263d">Hope you have enjoyed learning time series data modeling using linear regression!</p></div></div></section></div></article><div class="ik dj nb na ai zu nf ni" data-test-id="post-sidebar"><div class="n p"><div class="z ab ac ae af ag ah ai"><div class="nj n nk"><div class="dj"><div class="nl nm r"><a class="cq cr ba bb bc bd be bf bg bh hq hr bk gn go" href="https://towardsdatascience.com/?source=post_sidebar--------------------------post_sidebar-" rel="noopener"><h2 class="ar kd nn no ev">Towards Data Science</h2></a><div class="np nq r"><h4 class="ar cl gg at br nr gi gj ns gl aw">A Medium publication sharing concepts, ideas, and codes.</h4></div><div aria-hidden="false" class="hg"><span><a class="nt gr ay az nu bi bj nv bh hc ar b as at au av he hf df hg dx" href="https://medium.com/m/signin?operation=register&amp;redirect=https%3A%2F%2Ftowardsdatascience.com%2Fhow-to-model-time-series-data-with-linear-regression-cd94d1d901c0&amp;source=--------------------------follow_card-" rel="noopener">Follow</a></span></div></div><div class="nw nx ny n"><div class="n o"><div class="r fs nz oa ob oc od"><span><a class="cq cr ba bb bc bd be bf bg bh hq hr bk gn go" href="https://medium.com/m/signin?operation=register&amp;redirect=https%3A%2F%2Ftowardsdatascience.com%2Fhow-to-model-time-series-data-with-linear-regression-cd94d1d901c0&amp;source=post_sidebar-----cd94d1d901c0---------------------clap_sidebar-" rel="noopener"></a></span></div></div></div></div></div></div></div></div><div class="r on oo op oq or os ot"><div class="ou"><h4 class="ar cl gg at aw"></h4></div></div><div class="nx r"></div><div class="q"><span><a class="cq cr ba bb bc bd be bf bg bh hq hr bk gn go" href="https://medium.com/m/signin?operation=register&amp;redirect=https%3A%2F%2Ftowardsdatascience.com%2Fhow-to-model-time-series-data-with-linear-regression-cd94d1d901c0&amp;source=post_sidebar--------------------------post_sidebar-" rel="noopener"><svg height="25" viewbox="0 0 25 25" width="25"></svg></a></span></div><div class="ik dj na nb nc ga nd ne nf ng"></div><div><div class="ox ig n nk p"><div class="n p"><div class="z ab ac ae af dp ah ai"><div class="oy oz pa pb iq pc"><h2 class="ar kd pd jg pe ji pf ff pg fi ph fl ev">Sign up for The Daily Pick</h2><div class="pi r"><h3 class="ar cl cm at ev">By Towards Data Science</h3></div><div class="pj pk r"><p class="ar cl pl pm pn po pp pq pr ps pt pu ev">Hands-on
+
+ real-world examples, research,  tutorials, and cutting-edge techniques 
+
+delivered Monday to Thursday. Make learning your daily ritual. <a class="cq cr ba bb bc bd be bf bg bh bk gn go pv" href="https://medium.com/towards-data-science/newsletters/the-daily-pick?source=follow_footer--------------------------follow_footer-" rel="noopener">Take a look</a></p></div><div class="n pw"><div class="px r py"><span><a class="cq cr ba bb bc bd be bf bg bh hq hr bk gn go" href="https://medium.com/m/signin?operation=register&amp;redirect=https%3A%2F%2Ftowardsdatascience.com%2Fhow-to-model-time-series-data-with-linear-regression-cd94d1d901c0&amp;source=newsletter_v3_promo--------------------------newsletter_v3_promo-" rel="noopener"></a></span></div></div></div></div></div></div></div><div class="oy oz pa pb iq pc"><div class="n pw"><div class="qj qk r"><p class="ar cl cm at ev">Create a free Medium account to get The Daily Pick in your inbox.</p></div></div></div><div class="n pw"></div><div class="n o pw"></div><div class="ql r"><ul class="bf bg"><li class="hg bx hs qm"><a class="qn qo dx aw r lr no a b cm" href="https://towardsdatascience.com/tagged/python">Python</a></li><li class="hg bx hs qm"><a class="qn qo dx aw r lr no a b cm" href="https://towardsdatascience.com/tagged/statistics">Statistics</a></li><li class="hg bx hs qm"><a class="qn qo dx aw r lr no a b cm" href="https://towardsdatascience.com/tagged/programming">Programming</a></li><li class="hg bx hs qm"><a class="qn qo dx aw r lr no a b cm" href="https://towardsdatascience.com/tagged/data-science">Data Science</a></li><li class="hg bx hs qm"><a class="qn qo dx aw r lr no a b cm" href="https://towardsdatascience.com/tagged/time-series-modeling">Time Series Modeling</a></li></ul></div><div class="qp n fo y"><div class="n fw"><div class="qq r"><div class="n o"><div class="r fs qr qs qt qu qv"><span><a class="cq cr ba bb bc bd be bf bg bh hq hr bk gn go" href="https://medium.com/m/signin?operation=register&amp;redirect=https%3A%2F%2Ftowardsdatascience.com%2Fhow-to-model-time-series-data-with-linear-regression-cd94d1d901c0&amp;source=post_actions_footer-----cd94d1d901c0---------------------clap_footer-" rel="noopener"><div class="c qw gc n o qx fs qy qz ra rb rc rd re rf rg rh ri rj rk rl"></div></a></span></div></div></div></div></div><div class="r on oo op oq or os ot"><div class="fs rp ou"><h4 class="ar cl gg at ev"></h4></div></div><div class="n fw"><div class="r rq rr rs rt ru"></div></div><div class="n o"><div class="hp r ao"></div></div><div class="hp r ao"></div><div class="hp r ao"></div><div class="rv r ao"><div class="q"><span><a class="cq cr ba bb bc bd be bf bg bh hq hr bk gn go" href="https://medium.com/m/signin?operation=register&amp;redirect=https%3A%2F%2Ftowardsdatascience.com%2Fhow-to-model-time-series-data-with-linear-regression-cd94d1d901c0&amp;source=post_actions_footer--------------------------bookmark_footer-" rel="noopener"><svg height="25" viewbox="0 0 25 25" width="25"></svg></a></span></div></div><div class="n p"><div class="z ab ac ae af dp ah ai"><div class="rw rx pb ql r ry y"><div class="r g"><div class="rz sa r fs"><span class="r sb al sc"><div class="r s sd se"><a href="https://towardsdatascience.com/@jhwang1992m?source=follow_footer--------------------------follow_footer-" rel="noopener"><div class="fs sf ce"><div class="fv n fw o p s fx fy fz ga gb dj"><svg height="91" viewbox="0 0 91 91" width="91"></svg></div></div></a></div></span></div></div></div></div></div><div class="rz sa r fs"><span class="r sb al sc"><div class="r s sd se"><a href="https://towardsdatascience.com/@jhwang1992m?source=follow_footer--------------------------follow_footer-" rel="noopener"><div class="fs sf ce"><img alt="Jiahui Wang" class="r gc ce sf" height="80" src="download/2e8NPGZhPxcLycmEEaUy2lQ.jpeg" width="80"/></div></a></div><span class="r"><div class="sg r sh"><p class="ar cl cm at aw co dq">Written by</p></div><div class="sg si n sh"><div class="ai n o fo"><h2 class="ar kd sj sk ev"><a class="cq cr ba bb bc bd be bf bg bh hq hr bk gn go" href="https://towardsdatascience.com/@jhwang1992m?source=follow_footer--------------------------follow_footer-" rel="noopener">Jiahui Wang</a></h2><div class="r g"><span><a class="nt gr ay az nu bi bj nv bh hc ar b as at au av he hf df hg dx" href="https://medium.com/m/signin?operation=register&amp;redirect=https%3A%2F%2Ftowardsdatascience.com%2Fhow-to-model-time-series-data-with-linear-regression-cd94d1d901c0&amp;source=follow_footer-4037e6e33535-------------------------follow_footer-" rel="noopener">Follow</a></span></div></div></div></span></span><div class="sg sl r sh bp"><div class="sm r"><h4 class="ar cl nn qh aw">Motivated to LEARN and SHARE</h4></div></div></div><div class="rw r"></div><div class="rz sa r fs"><span class="r sb al sc"><div class="r s sd se"><a href="https://towardsdatascience.com/?source=follow_footer--------------------------follow_footer-" rel="noopener"><img alt="Towards Data Science" class="hc sf ce" height="80" src="download/1hVxgUA6kP-PgL5TJjuyePg.png" width="80"/></a></div><span class="r"><div class="sg si n sh"><div class="ai n o fo"><h2 class="ar kd sj sk ev"><a class="cq cr ba bb bc bd be bf bg bh hq hr bk gn go" href="https://towardsdatascience.com/?source=follow_footer--------------------------follow_footer-" rel="noopener">Towards Data Science</a></h2><div class="r g"><div aria-hidden="false" class="hg"><span><a class="nt gr ay az nu bi bj nv bh hc ar b as at au av he hf df hg dx" href="https://medium.com/m/signin?operation=register&amp;redirect=https%3A%2F%2Ftowardsdatascience.com%2Fhow-to-model-time-series-data-with-linear-regression-cd94d1d901c0&amp;source=--------------------------follow_card-" rel="noopener">Follow</a></span></div></div></div></div></span></span><div class="sg sp r sh bp"><div class="sm r"><h4 class="ar cl nn qh aw">A Medium publication sharing concepts, ideas, and codes.</h4></div></div></div><!--EndFragment-->
+</body>
+</html> 
