@@ -32,9 +32,11 @@ clipboard_filters = {'medium': filter_for_medium}
 def get_clipbaord_html():
     plt = which_platform()
     if(plt =='win'):
-        from phillippiper.HtmlClipboard import HtmlClipboard
-        cb = HtmlClipboard()
-        return cb.GetHtml()
+        import win32clipboard
+        win32clipboard.OpenClipboard()
+        data = win32clipboard.GetClipboardData()
+        win32clipboard.CloseClipboard()
+        return data
     else:
         import subprocess
         p = subprocess.Popen(['xclip', '-selection', 'clipboard', '-o'], stdout=subprocess.PIPE)
@@ -73,7 +75,17 @@ def convert_html_links(folder, site):
         clipboard_filters[site](soup)
 
     for link in soup.findAll('img'):
-        iurl = urlparse(link['src'])
+        img_src=None
+        try:
+            img_src=link['src']
+        except KeyError:
+            print(f"IMG SRC not found in {link}")
+            try:
+                img_src = link['data-src']
+            except KeyError:
+                print(f"IMG DATA-SRC not found in {link}")
+                continue
+        iurl = urlparse(img_src)
 
         iname=os.path.basename(iurl.path)
         inamevalid = get_valid_filename(iname)
@@ -81,8 +93,8 @@ def convert_html_links(folder, site):
         ifilelink = inamevalid
         ifilepath = os.path.join(folder,inamevalid)
 
-        print(f"{link['src']}, {ifilepath}")
-        url_get_content(link['src'], ifilepath)
+        print(f"{img_src}")
+        url_get_content(img_src, ifilepath)
         link['src'] = ifilelink
     wfilename = os.path.join(folder,"source.html")
     with open(wfilename, "w", encoding='utf-8') as outf:
