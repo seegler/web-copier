@@ -45,7 +45,6 @@ def get_clipbaord_html():
 
 
 def download_and_convert_links(folder):
-
     html = get_clipbaord_html()
     if html:
         if not os.path.exists(folder):
@@ -57,6 +56,7 @@ def download_and_convert_links(folder):
         #print(f"{html}")
         with open(sfile, "w", encoding="utf-8") as outf:
             outf.write(html)
+
 
 def convert_html_links(folder, site):
     sfile = os.path.join(folder, "source.html_")
@@ -99,6 +99,7 @@ def url_get_content(url_string, file_name):
 def sanitize_filename(name):
     return get_valid_filename(name)
 
+
 def do_web_copy_main(argv):
     #if (len(sys.argv) < 2):
     #    print("Usage: python Webcopy folder")
@@ -132,6 +133,7 @@ def which_platform():
         return "win"
     return "unknown"
 
+
 def help():
     print("Usage: python ClipboardCopy -s {medium|} -f {/home/user/download}")
     print("Enter title:...")
@@ -155,6 +157,7 @@ def parse_args(argv):
 
     title = input("Enter title :")
     return {'title': title, 'site': site, 'folder':folder}
+
 
 if __name__ == '__main__':
     do_web_copy_main(sys.argv)
